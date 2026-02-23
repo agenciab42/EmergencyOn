@@ -555,37 +555,31 @@
         margin-bottom: 56px;
       }
 
-      /* Feature cards list — row on desktop */
+      /* Feature cards — stacked vertically */
       .howto__cards {
         display: flex;
-        flex-direction: row;
-        gap: 24px;
-        max-width: none;
+        flex-direction: column;
+        gap: 20px;
+        max-width: 860px;
         margin: 0 auto 72px;
       }
 
-      /* Card — horizontal: [small image] | [info text] */
+      /* Card — horizontal: [small image left] | [info text right] */
       .howto__card {
-        flex: 1;
         display: flex;
         flex-direction: row;
         align-items: stretch;
         background: var(--card-bg);
         border-radius: 20px;
         overflow: hidden;
+        min-height: 180px;
       }
 
-      /* Second card mirrors: [info text] | [small image] */
-      .howto__card:nth-child(2) {
-        flex-direction: row-reverse;
-      }
-
-      /* Small image block — contained, no overflow */
+      /* Small image block — contained */
       .howto__card-img {
-        flex: 0 0 240px;
-        width: 240px;
+        flex: 0 0 260px;
+        width: 260px;
         overflow: hidden;
-        position: relative;
       }
 
       .howto__card-img img {
@@ -601,23 +595,23 @@
       .howto__card-body {
         flex: 1;
         background: transparent;
-        border-radius: 0;
         position: relative;
         overflow: hidden;
-        padding: 32px 36px;
+        padding: 28px 36px;
         display: flex;
         flex-direction: column;
         justify-content: center;
       }
 
+      /* Red glow — subtle, bottom-right corner */
       .howto__card-body::after {
         content: '';
         position: absolute;
-        top: 0;
-        right: 0;
-        width: 200px;
-        height: 200px;
-        background: radial-gradient(circle at top right, rgba(180, 0, 0, 0.5) 0%, transparent 70%);
+        bottom: -40px;
+        right: -40px;
+        width: 220px;
+        height: 220px;
+        background: radial-gradient(circle, rgba(180, 0, 0, 0.28) 0%, transparent 65%);
         pointer-events: none;
       }
 
