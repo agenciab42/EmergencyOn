@@ -20,6 +20,54 @@
   els.forEach(function (el) { observer.observe(el); });
 })();
 
+// Typing effect — pricing includes list
+(function () {
+  var list = document.querySelector('.pricing__includes');
+  var pricingLeft = document.querySelector('.pricing__left');
+  if (!list || !pricingLeft) return;
+
+  var items = Array.prototype.slice.call(list.querySelectorAll('li'));
+  var texts = items.map(function (li) { return li.textContent.trim(); });
+
+  // Clear all items up front
+  items.forEach(function (li) {
+    li.textContent = '';
+    li.style.visibility = 'hidden';
+  });
+
+  function typeItem(index) {
+    if (index >= items.length) return;
+    var li    = items[index];
+    var text  = texts[index];
+    var i     = 0;
+    li.style.visibility = 'visible';
+    var timer = setInterval(function () {
+      li.textContent = text.slice(0, i + 1);
+      i++;
+      if (i >= text.length) {
+        clearInterval(timer);
+        setTimeout(function () { typeItem(index + 1); }, 70);
+      }
+    }, 12);
+  }
+
+  // Start typing once the reveal transition of the left column finishes
+  pricingLeft.addEventListener('transitionend', function onDone(e) {
+    if (e.propertyName === 'opacity' && pricingLeft.classList.contains('is-visible')) {
+      pricingLeft.removeEventListener('transitionend', onDone);
+      typeItem(0);
+    }
+  });
+
+  // Fallback for no-JS / no-IO browsers
+  if (!('IntersectionObserver' in window)) {
+    items.forEach(function (li, i) {
+      li.textContent = texts[i];
+      li.style.visibility = 'visible';
+    });
+  }
+})();
+
 // Countdown to March 15, 2026
 (function () {
   var deadline = new Date('2026-03-15T23:59:59').getTime();
