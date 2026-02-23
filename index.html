@@ -4,13 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Plantão Simulado — Pare de congelar na ficha vermelha</title>
+
+    <!-- Preload LCP images -->
+    <link rel="preload" as="image" href="img/hero_desktop.png" />
+    <link rel="preload" as="image" href="img/experts.png" />
+
+    <!-- Google Fonts — non-blocking -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
-        <link rel="stylesheet" href="style.css" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
@@ -32,6 +44,9 @@
               src="img/Logo.png"
               alt="Plantão Simulado"
               class="hero__logo"
+              width="234"
+              height="71"
+              fetchpriority="high"
             />
 
             <!-- Live badge -->
@@ -59,20 +74,8 @@
             <a href="#" class="hero__cta">
               Quero saber tudo de plantão.
               <span class="hero__cta-icon" aria-hidden="true">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M3 13L13 3M13 3H6M13 3V10"
-                    stroke="#CC1414"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 13L13 3M13 3H6M13 3V10" stroke="#CC1414" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </span>
             </a>
@@ -84,6 +87,9 @@
               src="img/experts.png"
               alt="Especialistas Plantão Simulado"
               class="hero__experts-img"
+              width="674"
+              height="706"
+              fetchpriority="high"
             />
           </div>
 
@@ -219,6 +225,10 @@
           src="img/founders1.png"
           alt="Felipe e Arthur"
           class="founders__mobile-img"
+          width="390"
+          height="655"
+          loading="lazy"
+          decoding="async"
         />
 
       </div>
@@ -238,7 +248,7 @@
           <!-- Card 1: Pré-Plantão -->
           <div class="howto__card">
             <div class="howto__card-img">
-              <img src="img/macbook-pre.png" alt="Pré-Plantão — aula gravada" />
+              <img src="img/macbook-pre.png" alt="Pré-Plantão — aula gravada" width="565" height="324" loading="lazy" decoding="async" />
             </div>
             <div class="howto__card-body">
               <h3 class="howto__card-title">
@@ -253,7 +263,7 @@
           <!-- Card 2: Plantão Simulado ao vivo -->
           <div class="howto__card">
             <div class="howto__card-img">
-              <img src="img/macbook-live.png" alt="Plantão Simulado ao vivo" />
+              <img src="img/macbook-live.png" alt="Plantão Simulado ao vivo" width="565" height="324" loading="lazy" decoding="async" />
             </div>
             <div class="howto__card-body">
               <h3 class="howto__card-title">
@@ -296,18 +306,18 @@
 
         <div class="results__grid">
 
-          <div class="results__screenshot"><img src="img/depoimento1.png" alt="Depoimento 1" /></div>
-          <div class="results__screenshot"><img src="img/depoimento2.png" alt="Depoimento 2" /></div>
-          <div class="results__screenshot"><img src="img/depoimento3.png" alt="Depoimento 3" /></div>
-          <div class="results__screenshot"><img src="img/depoimento4.png" alt="Depoimento 4" /></div>
-          <div class="results__screenshot"><img src="img/depoimento5.png" alt="Depoimento 5" /></div>
-          <div class="results__screenshot"><img src="img/depoimento6.png" alt="Depoimento 6" /></div>
+          <div class="results__screenshot"><img src="img/depoimento1.png" alt="Depoimento 1" width="379" height="359" loading="lazy" decoding="async" /></div>
+          <div class="results__screenshot"><img src="img/depoimento2.png" alt="Depoimento 2" width="379" height="359" loading="lazy" decoding="async" /></div>
+          <div class="results__screenshot"><img src="img/depoimento3.png" alt="Depoimento 3" width="379" height="359" loading="lazy" decoding="async" /></div>
+          <div class="results__screenshot"><img src="img/depoimento4.png" alt="Depoimento 4" width="379" height="719" loading="lazy" decoding="async" /></div>
+          <div class="results__screenshot"><img src="img/depoimento5.png" alt="Depoimento 5" width="379" height="719" loading="lazy" decoding="async" /></div>
+          <div class="results__screenshot"><img src="img/depoimento6.png" alt="Depoimento 6" width="379" height="719" loading="lazy" decoding="async" /></div>
 
         </div>
       </div>
     </section>
 
-        <script src="script.js"></script>
+    <script src="script.js"></script>
 
   </body>
 </html>
