@@ -1,4 +1,7 @@
 
+      /* Mobile-only line breaks */
+      .br-mob { display: none; }
+
       /* ============================================================
          RESET & BASE
       ============================================================ */
@@ -1113,6 +1116,8 @@
         }
 
         /* Founders — mobile */
+        .br-mob { display: block; }
+
         .founders {
           background-image: none;
           background-color: transparent;
