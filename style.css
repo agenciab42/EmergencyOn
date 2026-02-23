@@ -564,45 +564,47 @@
         margin: 0 auto 72px;
       }
 
+      /* Card — horizontal: [small image] | [info text] */
       .howto__card {
         flex: 1;
         display: flex;
-        flex-direction: column;
-        background: transparent;
-        overflow: visible;
+        flex-direction: row;
+        align-items: stretch;
+        background: var(--card-bg);
+        border-radius: 20px;
+        overflow: hidden;
       }
 
-      /* Image block — overflows top and sides */
+      /* Second card mirrors: [info text] | [small image] */
+      .howto__card:nth-child(2) {
+        flex-direction: row-reverse;
+      }
+
+      /* Small image block — contained, no overflow */
       .howto__card-img {
-        width: 100%;
-        flex: none;
-        background: var(--card-bg);
-        border-radius: 16px 16px 0 0;
-        overflow: visible;
+        flex: 0 0 240px;
+        width: 240px;
+        overflow: hidden;
         position: relative;
-        z-index: 2;
       }
 
       .howto__card-img img {
-        width: calc(100% + 64px);
-        margin-left: -32px;
-        margin-top: -24px;
-        height: auto;
-        display: block;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
-        position: relative;
-        z-index: 2;
-        border-radius: 12px;
+        display: block;
+        margin: 0;
+        border-radius: 0;
       }
 
-      /* Text block — red top-right glow */
+      /* Text block */
       .howto__card-body {
         flex: 1;
-        background: var(--card-bg);
-        border-radius: 0 0 16px 16px;
+        background: transparent;
+        border-radius: 0;
         position: relative;
         overflow: hidden;
-        padding: 24px 28px 28px;
+        padding: 32px 36px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -613,10 +615,9 @@
         position: absolute;
         top: 0;
         right: 0;
-        width: 180px;
-        height: 180px;
-        background: radial-gradient(circle at top right, rgba(180, 0, 0, 0.55) 0%, transparent 70%);
-        border-radius: 0 16px 0 0;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle at top right, rgba(180, 0, 0, 0.5) 0%, transparent 70%);
         pointer-events: none;
       }
 
@@ -1121,21 +1122,22 @@
           flex-direction: column;
         }
 
-        .howto__card {
+        .howto__card,
+        .howto__card:nth-child(2) {
           flex-direction: column;
         }
 
         .howto__card-img {
           flex: none;
-          max-width: 100%;
+          width: 100%;
           height: 180px;
           overflow: hidden;
         }
 
         .howto__card-img img {
           width: 100%;
-          margin-left: 0;
-          margin-top: 0;
+          height: 100%;
+          margin: 0;
         }
 
         .howto__card-body {
