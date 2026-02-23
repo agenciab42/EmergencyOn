@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plantão Simulado — Pare de congelar na ficha vermelha</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ============================================================
+         RESET & BASE
+      ============================================================ */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: 'Kanit', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background: #fff;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* ============================================================
+         TOKENS
+      ============================================================ */
+      :root {
+        --red: #cc1414;
+        --red-hover: #b01010;
+        --dark-bg: #0d0d0d;
+        --card-bg: #1a1a1a;
+        --icon-bg: #252525;
+        --white: #ffffff;
+        --text-dark: #111111;
+        --text-muted: #444444;
+        --text-light: #ffffff;
+
+        --radius-card: 14px;
+        --radius-pill: 100px;
+
+        --container-max: 1300px;
+        --container-pad: 48px;
+      }
+
+      /* ============================================================
+         UTILITY
+      ============================================================ */
+      .c-red {
+        color: var(--red);
+        font-style: normal;
+      }
+
+      .container {
+        max-width: var(--container-max);
+        margin: 0 auto;
+        padding: 0 var(--container-pad);
+      }
+
+      /* ============================================================
+         HERO SECTION
+      ============================================================ */
+      .hero {
+        position: relative;
+        background-color: #fff;
+        overflow: hidden;
+        padding: 36px 0 52px;
+      }
+
+      /* Ambulance background — full hero */
+      .hero__bg-image {
+        position: absolute;
+        inset: 0;
+        background: url('img/hero_desktop.png') center center / cover no-repeat;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .hero .container {
+        position: relative;
+        z-index: 1;
+        padding-left: 20px;
+      }
+
+      /* Two-column layout */
+      .hero__inner {
+        display: flex;
+        align-items: center;
+        gap: 48px;
+        min-height: 720px;
+      }
+
+      /* ── Left column ── */
+      .hero__content {
+        flex: 0 0 65%;
+        max-width: 65%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      /* Logo */
+      .hero__logo {
+        width: 138px;
+        height: auto;
+        margin-bottom: 26px;
+      }
+
+      /* Live badge */
+      .hero__badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: #111;
+        color: #fff;
+        font-family: 'Kanit', sans-serif;
+        font-size: 11px;
+        font-weight: 300;
+        letter-spacing: 0.02em;
+        line-height: 1;
+        border-radius: var(--radius-pill);
+        padding: 6px 14px;
+        margin-bottom: 20px;
+      }
+
+      .hero__badge-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #4ade80;
+        flex-shrink: 0;
+        display: inline-block;
+      }
+
+      .hero__badge-sep {
+        opacity: 0.45;
+        margin: 0 1px;
+      }
+
+      /* H1 */
+      .hero__headline {
+        font-size: clamp(30px, 4.27vw, 82px);
+        font-weight: 400;
+        line-height: 1;
+        color: var(--text-dark);
+        letter-spacing: 0;
+        margin-bottom: 18px;
+      }
+
+      /* Body copy */
+      .hero__body {
+        font-size: clamp(14px, 1.77vw, 34px);
+        font-weight: 300;
+        color: #555;
+        line-height: 1.5;
+        letter-spacing: 0;
+        max-width: 365px;
+        margin-bottom: 30px;
+      }
+
+      /* CTA button */
+      .hero__cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        background: var(--red);
+        color: #fff;
+        font-family: 'Kanit', sans-serif;
+        font-size: clamp(15px, 1.46vw, 28px);
+        font-weight: 500;
+        line-height: 1;
+        border-radius: var(--radius-pill);
+        padding: 13px 14px 13px 26px;
+        transition: background 0.2s ease;
+        cursor: pointer;
+      }
+
+      .hero__cta:hover {
+        background: var(--red-hover);
+      }
+
+      .hero__cta-icon {
+        width: 36px;
+        height: 36px;
+        background: #fff;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      /* ── Right column — oculto no desktop, visível só no mobile ── */
+      .hero__visual {
+        display: none;
+      }
+
+      /* Foto dos experts — só mobile */
+      .hero__experts-img {
+        width: 100%;
+        max-width: 480px;
+        height: auto;
+        display: block;
+        object-fit: contain;
+      }
+
+      /* Expert card */
+      .expert-card {
+        width: 100%;
+        max-width: 340px;
+        border-radius: var(--radius-card);
+        overflow: hidden;
+        box-shadow:
+          0 40px 90px rgba(0, 0, 0, 0.22),
+          0 8px 20px rgba(0, 0, 0, 0.12);
+        background: transparent;
+      }
+
+      /* Card header bar */
+      .expert-card__header {
+        background: #111;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 14px;
+        min-height: 42px;
+      }
+
+      .expert-card__brand {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+
+      .expert-card__brand-icon {
+        flex-shrink: 0;
+        opacity: 0.9;
+      }
+
+      .expert-card__brand-name {
+        color: #aaa;
+        font-family: 'Kanit', sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1;
+      }
+
+      .expert-card__controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .expert-card__dots {
+        display: inline-flex;
+        align-items: center;
+        opacity: 0.7;
+      }
+
+      .expert-card__close {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--red);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+
+      /* Expert photo */
+      .expert-card__img {
+        width: 100%;
+        display: block;
+        object-fit: cover;
+        object-position: top center;
+        min-height: 340px;
+      }
+
+      /* ============================================================
+         DARK / TARGETS SECTION
+      ============================================================ */
+      .targets {
+        background: var(--dark-bg);
+        padding: 84px 0;
+        position: relative;
+        border-radius: 0 0 40px 40px;
+      }
+
+      .targets__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* Section titles */
+      .targets__title {
+        font-size: clamp(22px, 2.29vw, 44px);
+        font-weight: 400;
+        color: var(--text-light);
+        text-align: center;
+        line-height: 1.2;
+        margin-bottom: 48px;
+        width: 100%;
+      }
+
+      .targets__title--not {
+        margin-top: 72px;
+      }
+
+      /* Cards grid */
+      .cards-grid {
+        display: grid;
+        gap: 14px;
+        width: 100%;
+      }
+
+      .cards-grid--3 {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 960px;
+      }
+
+      .cards-grid--2 {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 660px;
+      }
+
+      /* Individual card */
+      .target-card {
+        background: var(--card-bg);
+        border-radius: var(--radius-card);
+        padding: 20px 22px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      /* Icon wrapper — bg removido, SVGs já têm círculo próprio */
+      .target-card__icon {
+        width: 63px;
+        height: 63px;
+        min-width: 63px;
+        background: none;
+        border-radius: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      /* Card text */
+      .target-card__text {
+        color: #fff;
+        font-family: 'Kanit', sans-serif;
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 1.5;
+      }
+
+      /* ============================================================
+         PROBLEM / STORY SECTION
+      ============================================================ */
+      .problem {
+        background: #fff;
+        padding: 80px 0;
+      }
+
+      /* Full-width intro row — sits above the 2-col block */
+      .problem__intro {
+        font-size: clamp(18px, 2.8vw, 46.34px);
+        font-weight: 400;
+        line-height: 1.5;
+        color: #111;
+        letter-spacing: 0;
+        margin-bottom: 48px;
+      }
+
+      /* Two-column row: text left, image right */
+      .problem__inner {
+        display: flex;
+        align-items: flex-start;
+        gap: 64px;
+      }
+
+      .problem__content {
+        flex: 1;
+        min-width: 0;
+      }
+
+      /* Headline — Medium weight for main text, Bold for "mudar isso." */
+      .problem__headline {
+        font-size: clamp(26px, 4.2vw, 74.75px);
+        font-weight: 500;
+        line-height: 1.2;
+        color: #111;
+        letter-spacing: 0;
+        margin-bottom: 40px;
+      }
+
+      /* "mudar isso." is Bold */
+      .problem__headline .c-red {
+        font-weight: 700;
+      }
+
+      /* Wrapper that keeps "mudar isso." + toggle on the same flex row */
+      .problem__headline-row {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      /* Toggle/switch pill (decorative) */
+      .problem__toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-end;
+        background: #800000;
+        border-radius: 100px;
+        padding: 5px;
+        width: 86px;
+        height: 50px;
+        flex-shrink: 0;
+        vertical-align: middle;
+      }
+
+      .problem__toggle-knob {
+        width: 40px;
+        height: 40px;
+        background: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      /* Body paragraphs */
+      .problem__text {
+        font-size: clamp(15px, 1.9vw, 36px);
+        font-weight: 400;
+        line-height: 1.5;
+        color: #333;
+        letter-spacing: 0;
+        margin-bottom: 20px;
+      }
+
+      .problem__text strong {
+        font-weight: 600;
+        color: #111;
+      }
+
+      /* CTA — outlined style */
+      .problem__cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        border: 2px solid var(--red);
+        color: var(--red);
+        background: transparent;
+        font-family: 'Kanit', sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        border-radius: var(--radius-pill);
+        padding: 10px 10px 10px 20px;
+        margin-top: 16px;
+        cursor: pointer;
+        transition: background 0.2s ease, color 0.2s ease;
+      }
+
+      .problem__cta:hover {
+        background: var(--red);
+        color: #fff;
+      }
+
+      .problem__cta-icon {
+        width: 30px;
+        height: 30px;
+        background: var(--red);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: background 0.2s ease;
+      }
+
+      .problem__cta:hover .problem__cta-icon {
+        background: #fff;
+      }
+
+      /* Right column — stretcher image (portrait file, no rotation needed) */
+      .problem__visual {
+        flex: 0 0 380px;
+        max-width: 380px;
+        display: flex;
+        align-items: flex-start;
+      }
+
+      .problem__img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      /* ============================================================
+         HOW IT WORKS SECTION
+      ============================================================ */
+      .howto {
+        background: var(--dark-bg);
+        padding: 84px 0 96px;
+        border-radius: 40px;
+        margin: 0 0 0 0;
+      }
+
+      .howto__title {
+        font-size: clamp(24px, 2.8vw, 48px);
+        font-weight: 700;
+        color: #fff;
+        text-align: center;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        margin-bottom: 56px;
+      }
+
+      /* Feature cards list */
+      .howto__cards {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        max-width: 620px;
+        margin: 0 auto 72px;
+      }
+
+      .howto__card {
+        display: flex;
+        align-items: stretch;
+        gap: 12px;
+        background: transparent;
+        overflow: visible;
+      }
+
+      /* Left rectangle — mockup image */
+      .howto__card-img {
+        flex: 0 0 160px;
+        max-width: 160px;
+        background: var(--card-bg);
+        border-radius: 16px;
+        overflow: visible;
+        display: flex;
+      }
+
+      .howto__card-img img {
+        width: 100%;
+        height: 100%;
+        min-height: 100%;
+        display: block;
+        object-fit: cover;
+        flex: 1;
+      }
+
+      /* Right rectangle — text, with red top-right glow */
+      .howto__card-body {
+        flex: 1;
+        background: var(--card-bg);
+        border-radius: 16px;
+        position: relative;
+        overflow: hidden;
+        padding: 28px 32px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .howto__card-body::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 180px;
+        height: 180px;
+        background: radial-gradient(circle at top right, rgba(180, 0, 0, 0.55) 0%, transparent 70%);
+        border-radius: 0 16px 0 0;
+        pointer-events: none;
+      }
+
+      .howto__card-title {
+        font-size: clamp(16px, 1.4vw, 22px);
+        font-weight: 600;
+        color: #fff;
+        line-height: 1.3;
+        margin-bottom: 10px;
+      }
+
+      .howto__card-title .howto__date {
+        color: var(--red);
+        font-weight: 600;
+      }
+
+      .howto__card-desc {
+        font-size: clamp(13px, 1.1vw, 17px);
+        font-weight: 300;
+        color: #bbb;
+        line-height: 1.65;
+      }
+
+      .howto__card-desc .c-red {
+        font-weight: 500;
+      }
+
+      /* Bottom CTA block */
+      .howto__footer {
+        text-align: center;
+      }
+
+      .howto__tagline {
+        font-size: clamp(20px, 2.2vw, 38px);
+        font-weight: 600;
+        color: #fff;
+        line-height: 1.3;
+        margin-bottom: 32px;
+      }
+
+      .howto__cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        background: var(--red);
+        color: #fff;
+        font-family: 'Kanit', sans-serif;
+        font-size: clamp(13px, 1vw, 16px);
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        border-radius: var(--radius-pill);
+        padding: 13px 13px 13px 26px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+
+      .howto__cta:hover {
+        background: var(--red-hover);
+      }
+
+      .howto__cta-icon {
+        width: 34px;
+        height: 34px;
+        background: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      /* ============================================================
+         FOUNDERS SECTION
+      ============================================================ */
+      .founders {
+        background-color: #efefef;
+        background-image: url('img/founders.png');
+        background-repeat: no-repeat;
+        background-position: 50% top;
+        background-size: auto 100%;
+        padding: 96px 0 96px;
+        min-height: 640px;
+      }
+
+
+      .founders__inner {
+        display: flex;
+      }
+
+      /* Left column — text only, right is empty (bg shows through) */
+      .founders__content {
+        flex: 0 0 46%;
+        max-width: 46%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      /* "FUNDADORES" eyebrow label */
+      .founders__label {
+        font-size: clamp(11px, 1.09vw, 21px);
+        font-weight: 400;
+        color: var(--red);
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
+
+      /* Main headline */
+      .founders__headline {
+        font-size: clamp(28px, 2.97vw, 57px);
+        font-weight: 400;
+        line-height: 1.15;
+        color: #111;
+        margin-bottom: 16px;
+      }
+
+      /* Subtitle */
+      .founders__subtitle {
+        font-size: clamp(18px, 1.98vw, 38px);
+        font-weight: 400;
+        line-height: 1.5;
+        color: #111;
+        margin-bottom: 48px;
+      }
+
+      /* Bio paragraphs */
+      .founders__bio {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-bottom: 48px;
+      }
+
+      .founders__bio p {
+        font-size: clamp(14px, 1.25vw, 24px);
+        font-weight: 300;
+        line-height: 1.8;
+        color: #222;
+      }
+
+      .founders__bio strong.c-red {
+        font-weight: 700;
+      }
+
+      /* CTA */
+      .founders__cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        background: var(--red);
+        color: #fff;
+        font-family: 'Kanit', sans-serif;
+        font-size: clamp(12px, 0.85vw, 15px);
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        border-radius: var(--radius-pill);
+        padding: 13px 13px 13px 26px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+
+      .founders__cta:hover {
+        background: var(--red-hover);
+      }
+
+      .founders__cta-icon {
+        width: 32px;
+        height: 32px;
+        background: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      /* Mobile-only image (hidden on desktop) */
+      .founders__mobile-img {
+        display: none;
+        width: 100%;
+        height: auto;
+        margin-top: 40px;
+      }
+
+      /* ============================================================
+         RESPONSIVE — Large desktop (≥ 1500px / 100% em 1920)
+      ============================================================ */
+      @media (min-width: 1500px) {
+        :root {
+          --container-pad: 64px;
+        }
+
+        .hero .container {
+          padding-left: 5px;
+        }
+
+        .hero {
+          padding: 54px 0 76px;
+        }
+
+        .hero__inner {
+          min-height: 819px;
+          gap: 64px;
+        }
+
+        .hero__logo {
+          width: 180px;
+          margin-bottom: 34px;
+        }
+
+        .hero__badge {
+          font-size: 13px;
+          padding: 8px 18px;
+          margin-bottom: 26px;
+        }
+
+        .hero__headline {
+          margin-bottom: 24px;
+        }
+
+        .hero__body {
+          max-width: 560px;
+          margin-bottom: 38px;
+        }
+
+        .hero__cta {
+          padding: 16px 16px 16px 32px;
+        }
+
+        .hero__cta-icon {
+          width: 44px;
+          height: 44px;
+        }
+
+        .hero__experts-img {
+          max-width: 640px;
+        }
+
+        .targets {
+          padding: 110px 0;
+        }
+
+        .targets__title {
+          margin-bottom: 56px;
+        }
+
+        .cards-grid--3 {
+          max-width: 1100px;
+          gap: 18px;
+        }
+
+        .cards-grid--2 {
+          max-width: 760px;
+          gap: 18px;
+        }
+
+        .target-card {
+          padding: 26px 28px;
+        }
+
+        .target-card__text {
+          font-size: 16px;
+        }
+
+        .problem {
+          padding: 110px 0;
+        }
+
+        .problem__intro {
+          margin-bottom: 60px;
+        }
+
+        .problem__headline {
+          margin-bottom: 48px;
+        }
+
+        .problem__cta {
+          font-size: 16px;
+        }
+
+        .problem__visual {
+          flex: 0 0 480px;
+          max-width: 480px;
+        }
+
+        /* Howto large desktop */
+        .howto {
+          padding: 110px 0 120px;
+        }
+
+        .howto__cards {
+          max-width: 620px;
+          margin-bottom: 88px;
+        }
+
+        .howto__card-body {
+          padding: 36px 44px;
+        }
+
+        /* Founders large desktop */
+        .founders {
+          padding: 120px 0 120px;
+          min-height: 800px;
+        }
+
+        .founders__content {
+          flex: 0 0 42%;
+          max-width: 42%;
+        }
+
+        .founders__label {
+          margin-bottom: 18px;
+        }
+
+        .founders__bio {
+          gap: 16px;
+          margin-bottom: 48px;
+        }
+      }
+
+      /* Founders padding-left: 0 apenas em desktop (> 960px) */
+      @media (min-width: 961px) {
+        .founders .container {
+          padding-left: 0;
+        }
+      }
+
+      /* ============================================================
+         RESPONSIVE — Tablet (≤ 960px)
+      ============================================================ */
+      @media (max-width: 960px) {
+        :root {
+          --container-pad: 28px;
+        }
+
+        .cards-grid--3 {
+          grid-template-columns: repeat(2, 1fr);
+          max-width: 100%;
+        }
+      }
+
+      /* ============================================================
+         RESPONSIVE — Mobile (≤ 768px)
+      ============================================================ */
+      @media (max-width: 768px) {
+        :root {
+          --container-pad: 20px;
+        }
+
+        /* Hero */
+        .hero {
+          padding: 28px 0 40px;
+        }
+
+        /* Hide ambulance bg on mobile */
+        .hero__bg-image {
+          display: none;
+        }
+
+        /* Stack + center everything */
+        .hero__inner {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: 0;
+          min-height: auto;
+          padding-bottom: 0;
+        }
+
+        .hero__content {
+          flex: none;
+          max-width: 100%;
+          align-items: center;
+        }
+
+        .hero__logo {
+          width: 160px;
+          margin-bottom: 24px;
+        }
+
+        .hero__badge {
+          font-size: 10px;
+          padding: 5px 12px;
+          margin-bottom: 20px;
+        }
+
+        .hero__headline {
+          font-size: 42.82px;
+          letter-spacing: -0.3px;
+          text-align: center;
+        }
+
+        .hero__body {
+          font-size: 20px;
+          font-weight: 300;
+          max-width: 100%;
+          text-align: center;
+          margin-bottom: 28px;
+        }
+
+        .hero__cta {
+          font-size: 20px;
+          font-weight: 600;
+          padding: 12px 12px 12px 22px;
+        }
+
+        /* Foto experts: aparece no mobile, bleed no dark section */
+        .hero__visual {
+          display: flex;
+          width: calc(100% + 120px);
+          margin-left: -60px;
+          margin-right: -60px;
+          justify-content: center;
+          margin-top: 36px;
+          margin-bottom: -120px;
+          position: relative;
+          z-index: 2;
+          overflow: visible;
+        }
+
+        .hero__experts-img {
+          width: 100%;
+          max-width: none;
+        }
+
+        /* Dark section — padding-top absorve o bleed da foto */
+        .targets {
+          padding: 60px 0 60px;
+          padding-top: 100px;
+          position: relative;
+          z-index: 1;
+        }
+
+        .targets__title {
+          font-size: 42px;
+          margin-bottom: 28px;
+        }
+
+        .targets__title--not {
+          margin-top: 48px;
+        }
+
+        .target-card__text {
+          font-size: 21px;
+        }
+
+        /* Stack all cards to 1 column */
+        .cards-grid--3,
+        .cards-grid--2 {
+          grid-template-columns: 1fr;
+          max-width: 100%;
+        }
+
+        .target-card {
+          padding: 26px 20px;
+        }
+
+        /* Problem section — mobile */
+        .problem {
+          padding: 56px 0;
+          text-align: center;
+        }
+
+        .problem__cta {
+          margin: 16px auto 0;
+        }
+
+        .problem__intro {
+          font-size: 40px;
+          margin-bottom: 28px;
+        }
+
+        .problem__headline {
+          font-size: 42px;
+          margin-bottom: 24px;
+        }
+
+        .problem__text {
+          font-size: 40px;
+        }
+
+        .problem__inner {
+          flex-direction: column;
+          gap: 0;
+        }
+
+        /* Esconde a maca no mobile */
+        .problem__visual {
+          display: none;
+        }
+
+        /* Howto — mobile */
+        .howto {
+          padding: 60px 0 72px;
+          border-radius: 28px;
+        }
+
+        .howto__cards {
+          margin-bottom: 48px;
+        }
+
+        .howto__card {
+          flex-direction: column;
+        }
+
+        .howto__card-img {
+          flex: none;
+          max-width: 100%;
+          height: 180px;
+        }
+
+        .howto__card-body {
+          padding: 20px 22px;
+        }
+
+        /* Founders — mobile */
+        .founders {
+          background-image: none;
+          background-color: transparent;
+          padding: 60px 0 0;
+          min-height: auto;
+          text-align: center;
+        }
+
+        .founders__content {
+          flex: none;
+          max-width: 100%;
+          align-items: center;
+        }
+
+        .founders__label {
+          font-size: 22px;
+          letter-spacing: 0.25em;
+        }
+
+        .founders__headline {
+          font-size: 58.88px;
+        }
+
+        .founders__subtitle {
+          font-size: 38px;
+        }
+
+        .founders__bio p {
+          font-size: 25px;
+        }
+
+        .founders__mobile-img {
+          display: block;
+          width: calc(100% + 120px);
+          margin-left: -60px;
+          margin-right: -60px;
+          max-width: none;
+        }
+      }
+
+      /* ============================================================
+         RESPONSIVE — Small phones (≤ 420px)
+      ============================================================ */
+      @media (max-width: 420px) {
+        /* clamp() handles font scaling — no overrides needed */
+      }
+
+      /* ============================================================
+         RESULTS / TESTIMONIALS SECTION
+      ============================================================ */
+      .results {
+        background: #fff;
+        padding: 88px 0 96px;
+      }
+
+      .results__title {
+        font-size: clamp(26px, 3.13vw, 60px);
+        font-weight: 400;
+        color: #111;
+        text-align: center;
+        line-height: 1.2;
+        margin-bottom: 56px;
+      }
+
+      .results__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      /* ── Testimonial cards (top row) ── */
+      .results__card {
+        background: #fff;
+        border: 1px solid #e5e5e5;
+        border-radius: 16px;
+        padding: 24px 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .results__card-icon {
+        width: 36px;
+        height: 36px;
+        background: #f5e8e8;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .results__card-text {
+        font-size: clamp(13px, 0.9vw, 16px);
+        font-weight: 300;
+        line-height: 1.65;
+        color: #333;
+        flex: 1;
+      }
+
+      .results__card-author {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #f0f0f0;
+      }
+
+      .results__card-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #ddd;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: 600;
+        color: #555;
+      }
+
+      .results__card-name {
+        font-size: clamp(13px, 0.85vw, 15px);
+        font-weight: 600;
+        color: #111;
+        line-height: 1.3;
+      }
+
+      .results__card-role {
+        font-size: clamp(11px, 0.7vw, 13px);
+        font-weight: 300;
+        color: #777;
+        line-height: 1.4;
+      }
+
+      /* ── Screenshot images (bottom row) ── */
+      .results__screenshot {
+        border-radius: 16px;
+        overflow: hidden;
+      }
+
+      .results__screenshot img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+      }
+
+      /* Mobile */
+      @media (max-width: 768px) {
+        .results {
+          padding: 60px 0 72px;
+        }
+
+        .results__title {
+          margin-bottom: 36px;
+        }
+
+        .results__grid {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- ============================================================
+         HERO SECTION
+    ============================================================ -->
+    <section class="hero">
+      <div class="hero__bg-image" aria-hidden="true"></div>
+
+      <div class="container">
+        <div class="hero__inner">
+
+          <!-- ── Left column ── -->
+          <div class="hero__content">
+
+            <!-- Logo -->
+            <img
+              src="img/Logo.png"
+              alt="Plantão Simulado"
+              class="hero__logo"
+            />
+
+            <!-- Live badge -->
+            <div class="hero__badge">
+              <span class="hero__badge-dot"></span>
+              <span>15 de Março às 20h</span>
+              <span class="hero__badge-sep">•</span>
+              <span>Plantão Ao Vivo</span>
+            </div>
+
+            <!-- Headline -->
+            <h1 class="hero__headline">
+              Pare de congelar<br />
+              na ficha <em class="c-red">vermelha.</em>
+            </h1>
+
+            <!-- Body copy -->
+            <p class="hero__body">
+              Plantão Simulado ao vivo: o sistema dos primeiros 5 minutos que
+              separa quem congela de quem estabiliza o paciente grave. O mesmo
+              método usado por emergencistas de verdade.
+            </p>
+
+            <!-- CTA button -->
+            <a href="#" class="hero__cta">
+              Quero saber tudo de plantão.
+              <span class="hero__cta-icon" aria-hidden="true">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3 13L13 3M13 3H6M13 3V10"
+                    stroke="#CC1414"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+            </a>
+          </div>
+
+          <!-- ── Right column: foto dos experts ── -->
+          <div class="hero__visual">
+            <img
+              src="img/experts.png"
+              alt="Especialistas Plantão Simulado"
+              class="hero__experts-img"
+            />
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         DARK SECTION — Público alvo
+    ============================================================ -->
+    <section class="targets">
+      <div class="container targets__container">
+
+        <!-- ── Ideal para ── -->
+        <h2 class="targets__title">
+          Este treinamento é <span class="c-red">ideal</span> para:
+        </h2>
+
+        <div class="cards-grid cards-grid--3">
+
+          <div class="target-card">
+            <div class="target-card__icon">
+              <svg width="63" height="63" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M31.2289 62.4578C48.4761 62.4578 62.4578 48.4761 62.4578 31.2289C62.4578 13.9816 48.4761 0 31.2289 0C13.9816 0 0 13.9816 0 31.2289C0 48.4761 13.9816 62.4578 31.2289 62.4578Z" fill="#C1121F" fill-opacity="0.25"/><path d="M31.2285 0.189453C48.3711 0.189453 62.2684 14.086 62.2686 31.2285C62.2686 48.3712 48.3712 62.2686 31.2285 62.2686C14.086 62.2684 0.189453 48.3711 0.189453 31.2285C0.189654 14.0861 14.0861 0.189654 31.2285 0.189453Z" stroke="#CE0303" stroke-opacity="0.25" stroke-width="0.378532"/><path d="M42.5848 45.107V40.8485C42.5848 36.8342 42.5848 34.8256 41.3371 33.5793C40.0908 32.3315 38.0822 32.3315 34.0679 32.3315L31.2289 35.1705L28.3899 32.3315C24.3756 32.3315 22.367 32.3315 21.1207 33.5793C19.8729 34.8256 19.8729 36.8342 19.8729 40.8485V45.107M36.9069 32.3315V40.1388" stroke="#E0E0E0" stroke-width="2.12924" stroke-linecap="round" stroke-linejoin="round"/><path d="M26.2606 32.3315V38.0095M26.2606 38.0095C27.0136 38.0095 27.7357 38.3086 28.2681 38.841C28.8005 39.3734 29.0996 40.0955 29.0996 40.8485V42.2679M26.2606 38.0095C25.5077 38.0095 24.7856 38.3086 24.2532 38.841C23.7207 39.3734 23.4216 40.0955 23.4216 40.8485V42.2679M36.1971 23.1048V21.6853C36.1971 21.0328 36.0686 20.3868 35.8189 19.784C35.5692 19.1812 35.2033 18.6335 34.7419 18.1722C34.2806 17.7109 33.7329 17.3449 33.1301 17.0952C32.5273 16.8455 31.8813 16.717 31.2289 16.717C30.5764 16.717 29.9304 16.8455 29.3276 17.0952C28.7248 17.3449 28.1771 17.7109 27.7158 18.1722C27.2544 18.6335 26.8885 19.1812 26.6388 19.784C26.3891 20.3868 26.2606 21.0328 26.2606 21.6853V23.1048C26.2606 23.7572 26.3891 24.4033 26.6388 25.006C26.8885 25.6088 27.2544 26.1565 27.7158 26.6178C28.1771 27.0792 28.7248 27.4451 29.3276 27.6948C29.9304 27.9445 30.5764 28.073 31.2289 28.073C31.8813 28.073 32.5273 27.9445 33.1301 27.6948C33.7329 27.4451 34.2806 27.0792 34.7419 26.6178C35.2033 26.1565 35.5692 25.6088 35.8189 25.006C36.0686 24.4033 36.1971 23.7572 36.1971 23.1048Z" stroke="#E0E0E0" stroke-width="2.12924" stroke-linecap="round" stroke-linejoin="round"/><path d="M37.9715 41.2033C37.9715 41.4856 37.8594 41.7564 37.6597 41.9561C37.4601 42.1558 37.1893 42.2679 36.9069 42.2679C36.6246 42.2679 36.3538 42.1558 36.1541 41.9561C35.9545 41.7564 35.8423 41.4856 35.8423 41.2033C35.8423 40.9209 35.9545 40.6501 36.1541 40.4505C36.3538 40.2508 36.6246 40.1387 36.9069 40.1387C37.1893 40.1387 37.4601 40.2508 37.6597 40.4505C37.8594 40.6501 37.9715 40.9209 37.9715 41.2033Z" stroke="#E0E0E0" stroke-width="2.12924"/></svg>
+            </div>
+            <p class="target-card__text">
+              Médicos formados há menos de 2 anos pegando plantão de porta —
+              muitas vezes sozinho, sem retaguarda.
+            </p>
+          </div>
+
+          <div class="target-card">
+            <div class="target-card__icon">
+              <svg width="63" height="63" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M31.2289 62.4578C48.4761 62.4578 62.4578 48.4761 62.4578 31.2289C62.4578 13.9816 48.4761 0 31.2289 0C13.9816 0 0 13.9816 0 31.2289C0 48.4761 13.9816 62.4578 31.2289 62.4578Z" fill="#C1121F" fill-opacity="0.25"/><path d="M31.2285 0.189453C48.3711 0.189453 62.2684 14.086 62.2686 31.2285C62.2686 48.3712 48.3712 62.2686 31.2285 62.2686C14.086 62.2684 0.189453 48.3711 0.189453 31.2285C0.189654 14.0861 14.0861 0.189654 31.2285 0.189453Z" stroke="#CE0303" stroke-opacity="0.25" stroke-width="0.378532"/><path d="M15.6145 26.5444L30.5348 20.5825L45.4551 26.5444L30.5348 32.5063L15.6145 26.5444Z" stroke="#E0E0E0" stroke-width="1.89266" stroke-linejoin="round"/><path d="M45.4551 26.6226V33.1686M22.3969 29.6851V38.5158C22.3969 38.5158 25.8107 41.875 30.5348 41.875C35.2596 41.875 38.6735 38.5158 38.6735 38.5158V29.6851" stroke="#E0E0E0" stroke-width="1.89266" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <p class="target-card__text">Futuros residentes.</p>
+          </div>
+
+          <div class="target-card">
+            <div class="target-card__icon">
+              <svg width="63" height="63" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M31.2289 62.4578C48.4761 62.4578 62.4578 48.4761 62.4578 31.2289C62.4578 13.9816 48.4761 0 31.2289 0C13.9816 0 0 13.9816 0 31.2289C0 48.4761 13.9816 62.4578 31.2289 62.4578Z" fill="#C1121F" fill-opacity="0.25"/><path d="M31.2285 0.189453C48.3711 0.189453 62.2684 14.086 62.2686 31.2285C62.2686 48.3712 48.3712 62.2686 31.2285 62.2686C14.086 62.2684 0.189453 48.3711 0.189453 31.2285C0.189654 14.0861 14.0861 0.189654 31.2285 0.189453Z" stroke="#CE0303" stroke-opacity="0.25" stroke-width="0.378532"/><path d="M42.5847 45.4238V41.1653C42.5847 37.151 42.5847 35.1439 41.337 33.8961C40.0907 32.6484 38.0821 32.6484 34.0678 32.6484L31.2288 35.4874L28.3898 32.6484C24.3754 32.6484 22.3669 32.6484 21.1205 33.8961C19.8742 35.1439 19.8728 37.151 19.8728 41.1653V45.4238M36.9067 36.9069V41.1653M39.036 39.0361H34.7775M36.197 23.4217V22.0022C36.197 20.6845 35.6736 19.4208 34.7418 18.4891C33.8101 17.5574 32.5464 17.0339 31.2288 17.0339C29.9111 17.0339 28.6474 17.5574 27.7157 18.4891C26.784 19.4208 26.2605 20.6845 26.2605 22.0022V23.4217C26.2605 24.0741 26.389 24.7201 26.6387 25.3229C26.8884 25.9257 27.2543 26.4734 27.7157 26.9347C28.177 27.3961 28.7247 27.762 29.3275 28.0117C29.9303 28.2614 30.5763 28.3899 31.2288 28.3899C31.8812 28.3899 32.5272 28.2614 33.13 28.0117C33.7328 27.762 34.2805 27.3961 34.7418 26.9347C35.2032 26.4734 35.5691 25.9257 35.8188 25.3229C36.0685 24.7201 36.197 24.0741 36.197 23.4217Z" stroke="#E0E0E0" stroke-width="1.41949" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <p class="target-card__text">Interno prestes a se formar.</p>
+          </div>
+
+        </div>
+
+        <!-- ── Não indicado para ── -->
+        <h2 class="targets__title targets__title--not">
+          <span class="c-red">Não</span> indicado para:
+        </h2>
+
+        <div class="cards-grid cards-grid--2">
+
+          <div class="target-card">
+            <div class="target-card__icon">
+              <svg width="63" height="63" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M31.2289 62.4578C48.4761 62.4578 62.4578 48.4761 62.4578 31.2289C62.4578 13.9816 48.4761 0 31.2289 0C13.9816 0 0 13.9816 0 31.2289C0 48.4761 13.9816 62.4578 31.2289 62.4578Z" fill="#C1121F" fill-opacity="0.25"/><path d="M31.2285 0.189453C48.3711 0.189453 62.2684 14.086 62.2686 31.2285C62.2686 48.3712 48.3712 62.2686 31.2285 62.2686C14.086 62.2684 0.189453 48.3711 0.189453 31.2285C0.189654 14.0861 14.0861 0.189654 31.2285 0.189453Z" stroke="#CE0303" stroke-opacity="0.25" stroke-width="0.378532"/><path d="M18.6939 30.1364H15.8606V35.8031L18.6939 37.2197M41.3606 30.1364H44.1939V35.8031L41.3606 37.2197M25.7773 31.5531V32.9697M34.2773 31.5531V32.9697M18.6939 24.4697H25.7773M34.2773 24.4697H41.3606M18.6939 37.9281L30.0273 35.0947L41.3606 37.9281" stroke="#E0E0E0" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M41.3606 42.1782L30.0273 47.1366L18.694 42.1782V19.5116L30.0273 14.5532L41.3606 19.5116V42.1782Z" stroke="#E0E0E0" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M34.2772 27.3034L30.0272 29.4284L25.7772 27.3034V21.6367L30.0272 19.5117L34.2772 21.6367V27.3034Z" stroke="#E0E0E0" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M30.0272 22.3447L27.9022 24.4697L30.0272 26.5947L32.1508 24.4697L30.0272 22.3447Z" stroke="#E0E0E0" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <p class="target-card__text">Emergencistas experientes</p>
+          </div>
+
+          <div class="target-card">
+            <div class="target-card__icon">
+              <svg width="63" height="63" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M31.2289 62.4578C48.4761 62.4578 62.4578 48.4761 62.4578 31.2289C62.4578 13.9816 48.4761 0 31.2289 0C13.9816 0 0 13.9816 0 31.2289C0 48.4761 13.9816 62.4578 31.2289 62.4578Z" fill="#C1121F" fill-opacity="0.25"/><path d="M31.2285 0.189453C48.3711 0.189453 62.2684 14.086 62.2686 31.2285C62.2686 48.3712 48.3712 62.2686 31.2285 62.2686C14.086 62.2684 0.189453 48.3711 0.189453 31.2285C0.189654 14.0861 14.0861 0.189654 31.2285 0.189453Z" stroke="#CE0303" stroke-opacity="0.25" stroke-width="0.378532"/><line x1="31.23" y1="17" x2="31.23" y2="45.46" stroke="#E0E0E0" stroke-width="2.13" stroke-linecap="round"/><line x1="43.55" y1="24.11" x2="18.91" y2="38.35" stroke="#E0E0E0" stroke-width="2.13" stroke-linecap="round"/><line x1="18.91" y1="24.11" x2="43.55" y2="38.35" stroke="#E0E0E0" stroke-width="2.13" stroke-linecap="round"/><line x1="31.23" y1="22.1" x2="28.1" y2="25.23" stroke="#E0E0E0" stroke-width="1.5" stroke-linecap="round"/><line x1="31.23" y1="22.1" x2="34.36" y2="25.23" stroke="#E0E0E0" stroke-width="1.5" stroke-linecap="round"/><line x1="31.23" y1="40.36" x2="28.1" y2="37.23" stroke="#E0E0E0" stroke-width="1.5" stroke-linecap="round"/><line x1="31.23" y1="40.36" x2="34.36" y2="37.23" stroke="#E0E0E0" stroke-width="1.5" stroke-linecap="round"/><line x1="41.69" y1="25.18" x2="38.56" y2="24.48" stroke="#E0E0E0" stroke-width="1.5" stroke-linecap="round"/><line x1="41.69" y1="25.18" x2="41.0" y2="28.31" stroke="#E0E0E0" stroke-width="1.5" stroke-linecap="round"/><line x1="20.77" y1="37.28" x2="23.9" y2="37.98" stroke="#E0E0E0" stroke-width="1.5" stroke-linecap="round"/><line x1="20.77" y1="37.28" x2="21.47" y2="34.15" stroke="#E0E0E0" stroke-width="1.5" stroke-linecap="round"/><line x1="20.77" y1="25.18" x2="23.9" y2="25.88" stroke="#E0E0E0" stroke-width="1.5" stroke-linecap="round"/><line x1="20.77" y1="25.18" x2="21.47" y2="28.31" stroke="#E0E0E0" stroke-width="1.5" stroke-linecap="round"/><line x1="41.69" y1="37.28" x2="38.56" y2="36.58" stroke="#E0E0E0" stroke-width="1.5" stroke-linecap="round"/><line x1="41.69" y1="37.28" x2="41.0" y2="34.15" stroke="#E0E0E0" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <p class="target-card__text">Quem não trabalha em emergência.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         FOUNDERS SECTION
+    ============================================================ -->
+    <section class="founders">
+      <div class="container">
+        <div class="founders__inner">
+
+          <!-- ── Left: text (right side shows bg photo on desktop) ── -->
+          <div class="founders__content">
+
+            <p class="founders__label">F U N D A D O R E S</p>
+
+            <h2 class="founders__headline">
+              Prazer, nós somos Felipe<br />e Arthur.
+            </h2>
+
+            <p class="founders__subtitle">
+              Emergencistas<br />formados pela USP<br />Ribeirão Preto.
+            </p>
+
+            <div class="founders__bio">
+              <p>
+                Mas antes disso, fomos dois recém-formados que trabalharam na
+                emergência sem residência.
+              </p>
+              <p>
+                A gente sentiu o mesmo medo que você sente. Não é fraqueza.
+              </p>
+              <p>
+                O problema é que o sistema de saúde brasileiro coloca
+                <strong class="c-red">recém-formado na frente do paciente
+                grave</strong> como se 6 anos de aula fossem suficientes. Não
+                são. Independente da sua faculdade.
+              </p>
+              <p>A gente decidiu preparar quem o sistema não prepara.</p>
+              <p>
+                O Emergência ON existe porque ninguém mais deveria travar na
+                frente do paciente grave sem ter tido a chance de aprender o
+                que fazer.
+              </p>
+            </div>
+
+            <a href="#" class="founders__cta">
+              Quero parar de travar
+              <span class="founders__cta-icon" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 13L13 3M13 3H6M13 3V10" stroke="#CC1414" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </a>
+
+          </div>
+          <!-- Right side intentionally empty on desktop — bg photo fills it -->
+
+        </div>
+
+        <!-- Mobile-only: show founders image below text -->
+        <img
+          src="img/founders1.png"
+          alt="Felipe e Arthur"
+          class="founders__mobile-img"
+        />
+
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         HOW IT WORKS SECTION
+    ============================================================ -->
+    <section class="howto">
+      <div class="container">
+
+        <h2 class="howto__title">Como funciona</h2>
+
+        <div class="howto__cards">
+
+          <!-- Card 1: Pré-Plantão -->
+          <div class="howto__card">
+            <div class="howto__card-img">
+              <img src="img/macbook-pre.png" alt="Pré-Plantão — aula gravada" />
+            </div>
+            <div class="howto__card-body">
+              <h3 class="howto__card-title">
+                Pré-Plantão <span style="font-weight:400;color:#aaa;">(liberação imediata)</span>
+              </h3>
+              <p class="howto__card-desc">
+                Aula gravada com o framework dos primeiros 5 minutos do paciente grave.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 2: Plantão Simulado ao vivo -->
+          <div class="howto__card">
+            <div class="howto__card-img">
+              <img src="img/macbook-live.png" alt="Plantão Simulado ao vivo" />
+            </div>
+            <div class="howto__card-body">
+              <h3 class="howto__card-title">
+                Plantão Simulado ao vivo
+                <span class="howto__date">(15 de março)</span>
+              </h3>
+              <p class="howto__card-desc">
+                Live com Felipe e Arthur. Cenários clínicos onde você toma decisões
+                em tempo real e descobre onde ainda erra.
+                <em class="c-red">Replay por 7 dias.</em>
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bottom CTA -->
+        <div class="howto__footer">
+          <p class="howto__tagline">Erre aqui, não no plantão de verdade.</p>
+          <a href="#" class="howto__cta">
+            Quero parar de travar
+            <span class="howto__cta-icon" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 13L13 3M13 3H6M13 3V10" stroke="#CC1414" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         RESULTS / TESTIMONIALS SECTION
+    ============================================================ -->
+    <section class="results">
+      <div class="container">
+
+        <h2 class="results__title">Resultados que salvam vidas</h2>
+
+        <div class="results__grid">
+
+          <div class="results__screenshot"><img src="img/depoimento1.png" alt="Depoimento 1" /></div>
+          <div class="results__screenshot"><img src="img/depoimento2.png" alt="Depoimento 2" /></div>
+          <div class="results__screenshot"><img src="img/depoimento3.png" alt="Depoimento 3" /></div>
+          <div class="results__screenshot"><img src="img/depoimento4.png" alt="Depoimento 4" /></div>
+          <div class="results__screenshot"><img src="img/depoimento5.png" alt="Depoimento 5" /></div>
+          <div class="results__screenshot"><img src="img/depoimento6.png" alt="Depoimento 6" /></div>
+
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // Placeholder for future interactivity
+    </script>
+
+  </body>
+</html>
