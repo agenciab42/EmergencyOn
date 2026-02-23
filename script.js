@@ -1,4 +1,25 @@
 
+// Scroll reveal — fade-up on enter viewport
+(function () {
+  var els = document.querySelectorAll('.reveal');
+
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(function (el) { el.classList.add('is-visible'); });
+    return;
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  els.forEach(function (el) { observer.observe(el); });
+})();
+
 // Countdown to March 15, 2026
 (function () {
   var deadline = new Date('2026-03-15T23:59:59').getTime();
