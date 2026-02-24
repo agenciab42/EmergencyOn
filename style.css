@@ -548,24 +548,27 @@
         z-index: 1;
       }
 
-      /* ── Howto dividers: faixa preta com entalhe triangular no centro ──
-         O container NÃO usa clip-path.
-         ::before cobre a metade esquerda, ::after a metade direita.
-         clip-path: polygon(...) apenas nos pseudo-elementos formam o entalhe.
+      /* ── Howto dividers: faixa preta centralizada na borda da seção ──
+         Container: position absolute + transform translateY para centrar.
+         Sem clip-path no container.
+         ::before = metade esquerda  |  ::after = metade direita
+         clip-path polygon cria recorte em DIAMANTE (triângulo no topo +
+         triângulo na parte inferior) apenas nos pseudo-elementos.
       ── */
       .howto__wave {
         position: absolute;
         left: 0;
         width: 100%;
-        height: 80px;
+        height: 100px;   /* altura generosa para o diamante aparecer */
         pointer-events: none;
         z-index: 2;
       }
 
-      .howto__wave--top    { top: -79px; }
-      .howto__wave--bottom { bottom: -79px; }
+      /* Centraliza a faixa verticalmente na borda da seção */
+      .howto__wave--top    { top: 0;    transform: translateY(-50%); }
+      .howto__wave--bottom { bottom: 0; transform: translateY(50%);  }
 
-      /* Metade esquerda e direita da faixa */
+      /* Metade esquerda e direita — sem background no container */
       .howto__wave::before,
       .howto__wave::after {
         content: '';
@@ -578,22 +581,14 @@
       .howto__wave::before { left: 0; }
       .howto__wave::after  { right: 0; }
 
-      /* TOPO — entalhe abre para CIMA no centro
-         base do triângulo: 30% da largura total (15% em cada metade)
-         profundidade: 40px                                              */
-      .howto__wave--top::before {
-        clip-path: polygon(0 0, 70% 0, 100% 40px, 100% 100%, 0 100%);
+      /* Recorte em DIAMANTE: triângulo no topo + triângulo na parte inferior
+         Lado esquerdo: borda direita forma meia-losango (0→70%→100%→70%→0) */
+      .howto__wave::before {
+        clip-path: polygon(0 0, 70% 0, 100% 50%, 70% 100%, 0 100%);
       }
-      .howto__wave--top::after {
-        clip-path: polygon(0 40px, 30% 0, 100% 0, 100% 100%, 0 100%);
-      }
-
-      /* BASE — entalhe abre para BAIXO no centro (invertido) */
-      .howto__wave--bottom::before {
-        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 40px), 70% 100%, 0 100%);
-      }
-      .howto__wave--bottom::after {
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 100%, 0 calc(100% - 40px));
+      /* Lado direito: borda esquerda forma a outra metade do losango */
+      .howto__wave::after {
+        clip-path: polygon(30% 0, 100% 0, 100% 100%, 30% 100%, 0 50%);
       }
 
       .howto__title {
