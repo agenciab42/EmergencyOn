@@ -599,6 +599,23 @@
         letter-spacing: 0.22em;
         text-transform: uppercase;
         margin-bottom: 56px;
+        position: relative;
+        display: inline-block;
+        width: 100%;
+      }
+
+      /* Blur preto de baixo pra cima sob o título */
+      .howto__title::after {
+        content: '';
+        position: absolute;
+        bottom: -28px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 70%;
+        height: 80px;
+        background: radial-gradient(ellipse 60% 100% at 50% 100%, rgba(0,0,0,0.75) 0%, transparent 75%);
+        pointer-events: none;
+        z-index: -1;
       }
 
       /* Feature cards — stacked vertically */
@@ -769,8 +786,8 @@
 
       /* Main headline */
       .founders__headline {
-        font-size: clamp(22px, 2.2vw, 42px);
-        font-weight: 400;
+        font-size: 58.88px;
+        font-weight: 800;
         line-height: 1.15;
         color: #111;
         margin-bottom: 16px;
@@ -778,7 +795,7 @@
 
       /* Subtitle */
       .founders__subtitle {
-        font-size: clamp(18px, 1.98vw, 38px);
+        font-size: 38px;
         font-weight: 400;
         line-height: 1.5;
         color: #111;
@@ -1470,19 +1487,20 @@
 
       .pricing__card-icon {
         position: absolute;
-        top: 0;
+        top: -24px;
         left: 50%;
         transform: translateX(-50%);
-        width: 72px;
-        height: 72px;
-        background: #1a1a1a;
-        border-radius: 50%;
+        z-index: 3;
         display: flex;
         align-items: center;
         justify-content: center;
-        z-index: 3;
-        border: 3px solid #2a2a2a;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      }
+
+      .pricing__logo {
+        height: 56px;
+        width: auto;
+        display: block;
+        filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
       }
 
       .pricing__card {
