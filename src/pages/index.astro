@@ -1,0 +1,796 @@
+---
+// Plantão Simulado — Landing Page
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plantão Simulado — Pare de congelar na ficha vermelha</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+
+    <!-- ============================================================
+         HERO SECTION
+    ============================================================ -->
+    <section class="hero">
+      <div class="hero__bg-image" aria-hidden="true"></div>
+
+      <div class="container">
+        <div class="hero__inner">
+
+          <!-- ── Left column ── -->
+          <div class="hero__content">
+
+            <!-- Logo -->
+            <img
+              src="/img/Logo.png"
+              alt="Plantão Simulado"
+              class="hero__logo"
+            />
+
+            <!-- Live badge -->
+            <div class="hero__badge">
+              <span class="hero__badge-dot"></span>
+              <span>15 de Março às 20h</span>
+              <span class="hero__badge-sep">•</span>
+              <span>Plantão Ao Vivo</span>
+            </div>
+
+            <!-- Headline -->
+            <h1 class="hero__headline">
+              Pare de congelar<br />
+              na ficha <em class="c-red">vermelha.</em>
+            </h1>
+
+            <!-- Body copy -->
+            <p class="hero__body">
+              Plantão Simulado ao vivo: o sistema dos primeiros 5 minutos que
+              separa quem congela de quem estabiliza o paciente grave. O mesmo
+              método usado por emergencistas de verdade.
+            </p>
+
+            <!-- CTA button -->
+            <a href="#" class="hero__cta">
+              Quero saber tudo de plantão.
+              <span class="hero__cta-icon" aria-hidden="true">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3 13L13 3M13 3H6M13 3V10"
+                    stroke="#CC1414"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+            </a>
+          </div>
+
+          <!-- ── Right column: Expert card ── -->
+          <div class="hero__visual">
+            <div class="expert-card">
+
+              <!-- Card header bar (mimics video/stream UI) -->
+              <div class="expert-card__header">
+                <div class="expert-card__brand">
+                  <!-- Tiny logo icon -->
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 32 32"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="expert-card__brand-icon"
+                    aria-hidden="true"
+                  >
+                    <rect
+                      x="1"
+                      y="8"
+                      width="20"
+                      height="20"
+                      rx="2"
+                      transform="rotate(-45 16 2)"
+                      stroke="#CC1414"
+                      stroke-width="2"
+                      fill="none"
+                    />
+                    <path
+                      d="M16 9v14M9 16h14"
+                      stroke="#CC1414"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                  <span class="expert-card__brand-name">plantã...</span>
+                </div>
+                <div class="expert-card__controls">
+                  <!-- Three dots -->
+                  <span class="expert-card__dots" aria-hidden="true">
+                    <svg width="18" height="4" viewBox="0 0 18 4" fill="none">
+                      <circle cx="2" cy="2" r="2" fill="#888" />
+                      <circle cx="9" cy="2" r="2" fill="#888" />
+                      <circle cx="16" cy="2" r="2" fill="#888" />
+                    </svg>
+                  </span>
+                  <!-- Close button -->
+                  <span class="expert-card__close" aria-label="Fechar">
+                    <svg
+                      width="8"
+                      height="8"
+                      viewBox="0 0 8 8"
+                      fill="none"
+                      stroke="white"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                    >
+                      <line x1="1" y1="1" x2="7" y2="7" />
+                      <line x1="7" y1="1" x2="1" y2="7" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Expert photo -->
+              <img
+                src="/img/experts.png"
+                alt="Especialistas Plantão Simulado"
+                class="expert-card__img"
+              />
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         DARK SECTION — Público alvo
+    ============================================================ -->
+    <section class="targets">
+      <div class="container targets__container">
+
+        <!-- ── Ideal para ── -->
+        <h2 class="targets__title">
+          Este treinamento é <span class="c-red">ideal</span> para:
+        </h2>
+
+        <div class="cards-grid cards-grid--3">
+
+          <div class="target-card">
+            <div class="target-card__icon">
+              <!-- Group / people icon -->
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"
+                />
+              </svg>
+            </div>
+            <p class="target-card__text">
+              Médicos formados há menos de 2 anos pegando plantão de porta —
+              muitas vezes sozinho, sem retaguarda.
+            </p>
+          </div>
+
+          <div class="target-card">
+            <div class="target-card__icon">
+              <!-- Graduation cap icon -->
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"
+                />
+              </svg>
+            </div>
+            <p class="target-card__text">Futuros residentes.</p>
+          </div>
+
+          <div class="target-card">
+            <div class="target-card__icon">
+              <!-- Single user icon -->
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                />
+              </svg>
+            </div>
+            <p class="target-card__text">Interno prestes a se formar.</p>
+          </div>
+
+        </div>
+
+        <!-- ── Não indicado para ── -->
+        <h2 class="targets__title targets__title--not">
+          <span class="c-red">Não</span> indicado para:
+        </h2>
+
+        <div class="cards-grid cards-grid--2">
+
+          <div class="target-card">
+            <div class="target-card__icon">
+              <!-- Shield / experienced professional icon -->
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+                />
+              </svg>
+            </div>
+            <p class="target-card__text">Emergencistas experientes</p>
+          </div>
+
+          <div class="target-card">
+            <div class="target-card__icon">
+              <!-- Snowflake icon -->
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="12" y1="2" x2="12" y2="22" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <polyline points="5,5 12,2 19,5" />
+                <polyline points="5,19 12,22 19,19" />
+                <polyline points="2,9 5,12 2,15" />
+                <polyline points="22,9 19,12 22,15" />
+              </svg>
+            </div>
+            <p class="target-card__text">Quem não trabalha em emergência.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </body>
+</html>
+
+<style is:global>
+  /* ============================================================
+     RESET & BASE
+  ============================================================ */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Kanit', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: #fff;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* ============================================================
+     TOKENS
+  ============================================================ */
+  :root {
+    --red: #cc1414;
+    --red-hover: #b01010;
+    --dark-bg: #0d0d0d;
+    --card-bg: #1a1a1a;
+    --icon-bg: #252525;
+    --white: #ffffff;
+    --text-dark: #111111;
+    --text-muted: #444444;
+    --text-light: #ffffff;
+
+    --radius-card: 14px;
+    --radius-pill: 100px;
+
+    --container-max: 1160px;
+    --container-pad: 48px;
+  }
+
+  /* ============================================================
+     UTILITY
+  ============================================================ */
+  .c-red {
+    color: var(--red);
+    font-style: normal;
+  }
+
+  .container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--container-pad);
+  }
+
+  /* ============================================================
+     HERO SECTION
+  ============================================================ */
+  .hero {
+    position: relative;
+    background-color: #fff;
+    overflow: hidden;
+    padding: 36px 0 52px;
+  }
+
+  /* Ambulance background — right half only */
+  .hero__bg-image {
+    position: absolute;
+    inset: 0 0 0 42%;
+    background: url('/img/hero_desktop.png') center center / cover no-repeat;
+    /* fade left edge into white */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 22%);
+    mask-image: linear-gradient(to right, transparent 0%, black 22%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Two-column layout */
+  .hero__inner {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    min-height: 380px;
+  }
+
+  /* ── Left column ── */
+  .hero__content {
+    flex: 0 0 52%;
+    max-width: 52%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Logo */
+  .hero__logo {
+    width: 138px;
+    height: auto;
+    margin-bottom: 26px;
+  }
+
+  /* Live badge */
+  .hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #111;
+    color: #fff;
+    font-family: 'Kanit', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    border-radius: var(--radius-pill);
+    padding: 6px 14px;
+    margin-bottom: 20px;
+  }
+
+  .hero__badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    flex-shrink: 0;
+    display: inline-block;
+  }
+
+  .hero__badge-sep {
+    opacity: 0.45;
+    margin: 0 1px;
+  }
+
+  /* H1 */
+  .hero__headline {
+    font-size: 54px;
+    font-weight: 800;
+    line-height: 1.04;
+    color: var(--text-dark);
+    letter-spacing: -0.5px;
+    margin-bottom: 18px;
+  }
+
+  /* Body copy */
+  .hero__body {
+    font-size: 14.5px;
+    font-weight: 300;
+    color: #555;
+    line-height: 1.72;
+    max-width: 365px;
+    margin-bottom: 30px;
+  }
+
+  /* CTA button */
+  .hero__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--red);
+    color: #fff;
+    font-family: 'Kanit', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+    border-radius: var(--radius-pill);
+    padding: 13px 14px 13px 26px;
+    transition: background 0.2s ease;
+    cursor: pointer;
+  }
+
+  .hero__cta:hover {
+    background: var(--red-hover);
+  }
+
+  .hero__cta-icon {
+    width: 36px;
+    height: 36px;
+    background: #fff;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* ── Right column ── */
+  .hero__visual {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Expert card */
+  .expert-card {
+    width: 100%;
+    max-width: 318px;
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    box-shadow:
+      0 40px 90px rgba(0, 0, 0, 0.22),
+      0 8px 20px rgba(0, 0, 0, 0.12);
+    /* red bg matches the experts.png transparent PNG */
+    background: #C41212;
+  }
+
+  /* Card header bar */
+  .expert-card__header {
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    min-height: 42px;
+  }
+
+  .expert-card__brand {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .expert-card__brand-icon {
+    flex-shrink: 0;
+    opacity: 0.9;
+  }
+
+  .expert-card__brand-name {
+    color: #aaa;
+    font-family: 'Kanit', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .expert-card__controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .expert-card__dots {
+    display: inline-flex;
+    align-items: center;
+    opacity: 0.7;
+  }
+
+  .expert-card__close {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--red);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  /* Expert photo */
+  .expert-card__img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    /* garante que não sobra fundo atrás dos experts */
+    min-height: 260px;
+  }
+
+  /* ============================================================
+     DARK / TARGETS SECTION
+  ============================================================ */
+  .targets {
+    background: var(--dark-bg);
+    padding: 84px 0;
+  }
+
+  .targets__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Section titles */
+  .targets__title {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text-light);
+    text-align: center;
+    line-height: 1.2;
+    margin-bottom: 48px;
+    width: 100%;
+  }
+
+  .targets__title--not {
+    margin-top: 72px;
+  }
+
+  /* Cards grid */
+  .cards-grid {
+    display: grid;
+    gap: 14px;
+    width: 100%;
+  }
+
+  .cards-grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 960px;
+  }
+
+  .cards-grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 660px;
+  }
+
+  /* Individual card */
+  .target-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-card);
+    padding: 20px 22px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  /* Icon wrapper */
+  .target-card__icon {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    background: var(--icon-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* Card text */
+  .target-card__text {
+    color: #fff;
+    font-family: 'Kanit', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.55;
+    padding-top: 11px;
+  }
+
+  /* ============================================================
+     RESPONSIVE — Tablet (≤ 960px)
+  ============================================================ */
+  @media (max-width: 960px) {
+    :root {
+      --container-pad: 28px;
+    }
+
+    .hero__headline {
+      font-size: 44px;
+    }
+
+    .cards-grid--3 {
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 100%;
+    }
+  }
+
+  /* ============================================================
+     RESPONSIVE — Mobile (≤ 768px)
+  ============================================================ */
+  @media (max-width: 768px) {
+    :root {
+      --container-pad: 20px;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 28px 0 40px;
+    }
+
+    /* Hide ambulance bg on mobile */
+    .hero__bg-image {
+      display: none;
+    }
+
+    /* Stack columns */
+    .hero__inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 36px;
+      min-height: auto;
+    }
+
+    .hero__content {
+      flex: none;
+      max-width: 100%;
+    }
+
+    .hero__logo {
+      width: 120px;
+      margin-bottom: 20px;
+    }
+
+    .hero__badge {
+      font-size: 10px;
+      padding: 5px 12px;
+      margin-bottom: 16px;
+    }
+
+    .hero__headline {
+      font-size: 36px;
+      letter-spacing: -0.3px;
+    }
+
+    .hero__body {
+      font-size: 14px;
+      max-width: 100%;
+      margin-bottom: 24px;
+    }
+
+    .hero__cta {
+      font-size: 15px;
+      padding: 12px 12px 12px 22px;
+    }
+
+    /* Card: center on mobile */
+    .hero__visual {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .expert-card {
+      max-width: 100%;
+    }
+
+    /* Dark section */
+    .targets {
+      padding: 60px 0;
+    }
+
+    .targets__title {
+      font-size: 26px;
+      margin-bottom: 36px;
+    }
+
+    .targets__title--not {
+      margin-top: 56px;
+    }
+
+    /* Stack all cards to 1 column */
+    .cards-grid--3,
+    .cards-grid--2 {
+      grid-template-columns: 1fr;
+      max-width: 100%;
+    }
+
+    .target-card {
+      padding: 18px 18px;
+    }
+  }
+
+  /* ============================================================
+     RESPONSIVE — Small phones (≤ 420px)
+  ============================================================ */
+  @media (max-width: 420px) {
+    .hero__headline {
+      font-size: 30px;
+    }
+
+    .targets__title {
+      font-size: 22px;
+    }
+
+    .hero__cta {
+      font-size: 14px;
+    }
+  }
+</style>
