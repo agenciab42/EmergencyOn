@@ -103,45 +103,63 @@
       }
 
       .progress__track {
-        height: 26px;
-        background: rgba(255,255,255,0.1);
+        height: 38px;                      /* mais grossa */
+        background: rgba(255,255,255,0.08);
         border-radius: 100px;
-        overflow: hidden;
+        /* sem overflow:hidden — permite o glow escapar */
+        position: relative;
       }
 
       .progress__fill {
         height: 100%;
-        width: 0; /* animado via JS para 95% */
+        width: 0;                          /* animado via JS para 95% */
         background: linear-gradient(90deg, #b80000 0%, #e81010 60%, #ff3535 100%);
         border-radius: 100px;
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        padding-right: 14px;
+        padding-right: 16px;
         transition: width 1.5s cubic-bezier(0.16,1,0.3,1);
         position: relative;
         overflow: hidden;
+        /* Glow pulsante — inicia após a barra chegar em 95% */
+        animation: progress-glow 2s ease-in-out 2.4s infinite;
       }
 
-      /* Brilho interno da barra */
+      /* Brilho interno */
       .progress__fill::after {
         content: '';
         position: absolute;
-        top: 2px;
-        left: 8px;
-        right: 8px;
-        height: 6px;
+        top: 4px;
+        left: 10px;
+        right: 10px;
+        height: 8px;
         background: rgba(255,255,255,0.18);
         border-radius: 100px;
       }
 
       .progress__label {
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 700;
         color: #fff;
         white-space: nowrap;
         position: relative;
         z-index: 1;
+        letter-spacing: 0.04em;
+      }
+
+      /* Glow pulsante vermelho */
+      @keyframes progress-glow {
+        0%, 100% {
+          box-shadow:
+            0 0 8px  4px  rgba(204,20,20,0.45),
+            0 0 24px 8px  rgba(204,20,20,0.20);
+        }
+        50% {
+          box-shadow:
+            0 0 18px 8px  rgba(204,20,20,0.70),
+            0 0 50px 18px rgba(204,20,20,0.40);
+        }
       }
 
       /* ============================================================
@@ -334,7 +352,7 @@
         <div class="progress-wrap" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso da inscrição: 95%">
           <div class="progress__track">
             <div class="progress__fill" id="progress-fill">
-              <span class="progress__label">95%</span>
+              <span class="progress__label" id="progress-label">0%</span>
             </div>
           </div>
         </div>
@@ -385,13 +403,42 @@
     </main>
 
     <script>
-      // Anima a barra de progresso após o DOM estar pronto
       (function () {
         function runProgress() {
-          var fill = document.getElementById('progress-fill');
-          if (!fill) return;
-          // Pequeno delay para a animação de entrada do wrapper terminar
-          setTimeout(function () { fill.style.width = '95%'; }, 700);
+          var fill  = document.getElementById('progress-fill');
+          var label = document.getElementById('progress-label');
+          if (!fill || !label) return;
+
+          var TARGET   = 95;      // valor final
+          var DURATION = 1500;    // ms — deve casar com a transition CSS
+
+          // Aguarda a animação de entrada do wrapper terminar
+          setTimeout(function () {
+
+            // Dispara a transição de largura
+            fill.style.width = TARGET + '%';
+
+            // Contador 0 → 95 sincronizado com a transição
+            var startTime = null;
+
+            function tick(ts) {
+              if (!startTime) startTime = ts;
+              var elapsed  = ts - startTime;
+              var progress = Math.min(elapsed / DURATION, 1);
+              // Ease-out cúbico — mesmo feeling da cubic-bezier da barra
+              var eased   = 1 - Math.pow(1 - progress, 3);
+              var current = Math.round(eased * TARGET);
+              label.textContent = current + '%';
+              if (progress < 1) {
+                requestAnimationFrame(tick);
+              } else {
+                label.textContent = TARGET + '%';
+              }
+            }
+
+            requestAnimationFrame(tick);
+
+          }, 700); // delay inicial
         }
 
         if (document.readyState === 'loading') {
