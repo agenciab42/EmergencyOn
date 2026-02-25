@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inscrição quase concluída — Plantão Simulado</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <style>
+      /* ── Reset ── */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      /* ── Base ── */
+      html { scroll-behavior: smooth; }
+
+      body {
+        font-family: 'Kanit', sans-serif;
+        min-height: 100vh;
+        overflow-x: hidden;
+        background: #080808;
+      }
+
+      /* ============================================================
+         BACKGROUND — foto desfocada + overlay
+      ============================================================ */
+      .bg {
+        position: fixed;
+        inset: 0;
+        background: url('img/bg_obrigado.png') center center / cover no-repeat;
+        filter: blur(5px) brightness(0.28);
+        transform: scale(1.06); /* evita borda branca do blur */
+        z-index: 0;
+        will-change: transform;
+      }
+
+      /* ============================================================
+         PÁGINA — container principal
+      ============================================================ */
+      .page {
+        position: relative;
+        z-index: 1;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 56px 24px 72px;
+      }
+
+      .content {
+        width: 100%;
+        max-width: 1020px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 28px;
+      }
+
+      /* ============================================================
+         LOGO
+      ============================================================ */
+      .logo {
+        display: block;
+        height: 72px;
+        width: auto;
+        opacity: 0;
+        animation: fadeInDown 0.65s cubic-bezier(0.16,1,0.3,1) 0.1s both;
+      }
+
+      /* ============================================================
+         HEADLINE
+      ============================================================ */
+      .headline {
+        font-size: clamp(28px, 4.2vw, 52px);
+        font-weight: 700;
+        color: #fff;
+        text-align: center;
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+        opacity: 0;
+        animation: fadeInUp 0.65s cubic-bezier(0.16,1,0.3,1) 0.22s both;
+      }
+
+      /* ============================================================
+         PROGRESS BAR
+      ============================================================ */
+      .progress-wrap {
+        width: 100%;
+        max-width: 580px;
+        opacity: 0;
+        animation: fadeInUp 0.65s cubic-bezier(0.16,1,0.3,1) 0.32s both;
+      }
+
+      .progress__track {
+        height: 26px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 100px;
+        overflow: hidden;
+      }
+
+      .progress__fill {
+        height: 100%;
+        width: 0; /* animado via JS para 95% */
+        background: linear-gradient(90deg, #b80000 0%, #e81010 60%, #ff3535 100%);
+        border-radius: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 14px;
+        transition: width 1.5s cubic-bezier(0.16,1,0.3,1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Brilho interno da barra */
+      .progress__fill::after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 8px;
+        right: 8px;
+        height: 6px;
+        background: rgba(255,255,255,0.18);
+        border-radius: 100px;
+      }
+
+      .progress__label {
+        font-size: 13px;
+        font-weight: 700;
+        color: #fff;
+        white-space: nowrap;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* ============================================================
+         SUBTITLE
+      ============================================================ */
+      .subtitle {
+        font-size: clamp(14px, 1.5vw, 17px);
+        font-weight: 400;
+        color: rgba(255,255,255,0.82);
+        text-align: center;
+        opacity: 0;
+        animation: fadeInUp 0.65s cubic-bezier(0.16,1,0.3,1) 0.4s both;
+      }
+
+      /* ============================================================
+         CARDS — 3 colunas
+      ============================================================ */
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        width: 100%;
+      }
+
+      .card {
+        background: rgba(8,8,8,0.88);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 14px;
+        padding: 28px 22px 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        /* Stagger via variável CSS --i definida inline */
+        opacity: 0;
+        animation: fadeInUp 0.65s cubic-bezier(0.16,1,0.3,1) var(--delay, 0.5s) both;
+      }
+
+      /* Linha vermelha no topo de cada card */
+      .card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 68px;
+        height: 3px;
+        background: #CC1414;
+        border-radius: 0 0 4px 4px;
+      }
+
+      /* Brilho sutil no topo do card */
+      .card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 50%, transparent 100%);
+      }
+
+      .card__step {
+        font-size: 17px;
+        font-weight: 700;
+        color: #fff;
+        margin-top: 10px;
+      }
+
+      .card__text {
+        font-size: 15px;
+        font-weight: 400;
+        color: rgba(255,255,255,0.82);
+        line-height: 1.6;
+        flex: 1; /* empurra o botão para o fundo */
+      }
+
+      .card__text strong {
+        font-weight: 700;
+        color: #fff;
+      }
+
+      /* ── Botões ── */
+      .card__btn {
+        display: block;
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: 8px;
+        font-family: 'Kanit', sans-serif;
+        font-size: 13.5px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        cursor: pointer;
+        border: none;
+        transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        margin-top: 4px;
+      }
+
+      .card__btn:hover {
+        opacity: 0.88;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      }
+
+      .card__btn:active {
+        transform: translateY(0);
+      }
+
+      /* Verde */
+      .card__btn--green {
+        background: #22a642;
+        color: #fff;
+        box-shadow: 0 4px 14px rgba(34,166,66,0.35);
+      }
+
+      /* Vermelho escuro */
+      .card__btn--red {
+        background: #8B1010;
+        color: #fff;
+        box-shadow: 0 4px 14px rgba(139,16,16,0.4);
+      }
+
+      /* ============================================================
+         ANIMAÇÕES
+      ============================================================ */
+      @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(24px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* ============================================================
+         RESPONSIVO — mobile
+      ============================================================ */
+      @media (max-width: 760px) {
+        .page { padding: 40px 16px 60px; }
+        .content { gap: 22px; }
+
+        .logo { height: 56px; }
+
+        .cards {
+          grid-template-columns: 1fr;
+          max-width: 480px;
+          margin: 0 auto;
+          width: 100%;
+        }
+
+        .card { padding: 24px 20px 20px; }
+
+        .card__text { font-size: 14.5px; }
+
+        .progress-wrap { max-width: 100%; }
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- Fundo desfocado -->
+    <div class="bg" aria-hidden="true"></div>
+
+    <!-- Conteúdo principal -->
+    <main class="page">
+      <div class="content">
+
+        <!-- Logo -->
+        <img
+          src="img/Log_obrigado.png"
+          alt="Plantão Simulado"
+          class="logo"
+          width="300"
+          height="91"
+          fetchpriority="high"
+        />
+
+        <!-- Headline -->
+        <h1 class="headline">Inscrição quase concluída.</h1>
+
+        <!-- Barra de progresso -->
+        <div class="progress-wrap" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso da inscrição: 95%">
+          <div class="progress__track">
+            <div class="progress__fill" id="progress-fill">
+              <span class="progress__label">95%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subtítulo -->
+        <p class="subtitle">Siga os próximos passos para concluir sua inscrição.</p>
+
+        <!-- Cards de passos -->
+        <div class="cards">
+
+          <!-- Passo 1: WhatsApp -->
+          <div class="card" style="--delay: 0.50s">
+            <p class="card__step">1° Passo</p>
+            <p class="card__text">
+              Entre na comunidade do Plantão Simulado no
+              <strong>WhatsApp</strong> para receber o aviso da aula.
+            </p>
+            <!-- ← Substitua href pelo link do grupo WhatsApp -->
+            <a href="#" class="card__btn card__btn--green">INGRESSAR AGORA</a>
+          </div>
+
+          <!-- Passo 2: Pesquisa -->
+          <div class="card" style="--delay: 0.62s">
+            <p class="card__step">2° Passo</p>
+            <p class="card__text">
+              Ganhe um guia completo de como usar drogas vasoativas
+              na emergência — basta preencher a pesquisa abaixo
+              em menos de 2 minutos.
+            </p>
+            <!-- ← Substitua href pelo link da pesquisa -->
+            <a href="#" class="card__btn card__btn--red">RESPONDER PESQUISA</a>
+          </div>
+
+          <!-- Passo 3: Agenda -->
+          <div class="card" style="--delay: 0.74s">
+            <p class="card__step">3° Passo</p>
+            <p class="card__text">
+              O que não está na sua agenda, não está na sua vida.
+              Clique no link abaixo para automaticamente adicionar
+              o Plantão Simulado no seu calendário.
+            </p>
+            <!-- ← Substitua href pelo link do Google Calendar / .ics -->
+            <a href="#" class="card__btn card__btn--green">MARCAR NA AGENDA</a>
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // Anima a barra de progresso após o DOM estar pronto
+      (function () {
+        function runProgress() {
+          var fill = document.getElementById('progress-fill');
+          if (!fill) return;
+          // Pequeno delay para a animação de entrada do wrapper terminar
+          setTimeout(function () { fill.style.width = '95%'; }, 700);
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', runProgress);
+        } else {
+          runProgress();
+        }
+      })();
+    </script>
+
+  </body>
+</html>
