@@ -91,14 +91,17 @@
     var days  = Math.floor(diff / 86400000);
     var hours = Math.floor((diff % 86400000) / 3600000);
     var mins  = Math.floor((diff % 3600000)  / 60000);
+    var secs  = Math.floor((diff % 60000)    / 1000);
 
     var dEl = document.getElementById('cd-days');
     var hEl = document.getElementById('cd-hours');
     var mEl = document.getElementById('cd-mins');
+    var sEl = document.getElementById('cd-secs');
 
     if (dEl) dEl.textContent = pad(days);
     if (hEl) hEl.textContent = pad(hours);
     if (mEl) mEl.textContent = pad(mins);
+    if (sEl) sEl.textContent = pad(secs);
   }
 
   tick();
