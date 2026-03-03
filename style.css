@@ -3,6 +3,40 @@
       .br-mob { display: none; }
 
       /* ============================================================
+         TOP BANNER
+      ============================================================ */
+      @keyframes banner-pulse {
+        0%, 100% { transform: scale(1); }
+        50%       { transform: scale(1.045); }
+      }
+
+      .top-banner {
+        background: #22c55e;
+        width: 100%;
+        padding: 14px 20px;
+        text-align: center;
+        overflow: hidden;
+      }
+
+      .top-banner__text {
+        display: inline-block;
+        font-family: 'Kanit', sans-serif;
+        font-size: clamp(14px, 1.5vw, 20px);
+        font-weight: 700;
+        color: #111;
+        letter-spacing: 0.01em;
+        line-height: 1.2;
+        animation: banner-pulse 3s ease-in-out infinite;
+        transform-origin: center;
+      }
+
+      @media (max-width: 768px) {
+        .top-banner {
+          padding: 12px 16px;
+        }
+      }
+
+      /* ============================================================
          RESET & BASE
       ============================================================ */
       *,
