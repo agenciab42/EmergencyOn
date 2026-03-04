@@ -204,7 +204,7 @@
 
       /* H1 */
       .hero__headline {
-        font-size: clamp(30px, 4.27vw, 82px);
+        font-size: clamp(24px, 3.2vw, 62px);
         font-weight: 400;
         line-height: 1;
         color: var(--text-dark);
@@ -214,7 +214,7 @@
 
       /* Body copy */
       .hero__body {
-        font-size: clamp(14px, 1.77vw, 34px);
+        font-size: clamp(13px, 1.2vw, 20px);
         font-weight: 300;
         color: #555;
         line-height: 1.5;
@@ -1110,13 +1110,13 @@
         }
 
         .hero__headline {
-          font-size: 42.82px;
+          font-size: 30px;
           letter-spacing: -0.3px;
           text-align: center;
         }
 
         .hero__body {
-          font-size: 20px;
+          font-size: 15px;
           font-weight: 300;
           max-width: 100%;
           text-align: center;
