@@ -223,6 +223,14 @@
         margin-bottom: 30px;
       }
 
+      /* Texto acima do CTA */
+      .hero__pre-cta {
+        font-size: clamp(13px, 1vw, 16px);
+        font-weight: 600;
+        color: #555;
+        margin-bottom: 14px;
+      }
+
       /* CTA button */
       .hero__cta {
         display: inline-flex;
