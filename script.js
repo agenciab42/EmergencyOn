@@ -68,6 +68,29 @@
   }
 })();
 
+// Capture UTMs from landing page URL and forward to Hotmart checkout links
+(function () {
+  var utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+  var params = new URLSearchParams(window.location.search);
+
+  var captured = {};
+  utmKeys.forEach(function (key) {
+    var val = params.get(key);
+    if (val) captured[key] = val;
+  });
+
+  if (Object.keys(captured).length === 0) return; // no UTMs in URL — keep hardcoded fallback
+
+  var links = document.querySelectorAll('a[href*="pay.hotmart.com"]');
+  links.forEach(function (link) {
+    var url = new URL(link.href);
+    utmKeys.forEach(function (key) {
+      if (captured[key]) url.searchParams.set(key, captured[key]);
+    });
+    link.href = url.toString();
+  });
+})();
+
 // Countdown to March 9, 2026 at 23:59 Brasília (UTC-3)
 (function () {
   var deadline = new Date('2026-03-09T23:59:00-03:00').getTime();
