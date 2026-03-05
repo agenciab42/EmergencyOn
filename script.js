@@ -68,9 +68,9 @@
   }
 })();
 
-// Countdown to March 16, 2026 at 19:59 Brasília (UTC-3)
+// Countdown to March 9, 2026 at 23:59 Brasília (UTC-3)
 (function () {
-  var deadline = new Date('2026-03-16T19:59:00-03:00').getTime();
+  var deadline = new Date('2026-03-09T23:59:00-03:00').getTime();
 
   function pad(n) {
     return String(n).padStart(2, '0');
