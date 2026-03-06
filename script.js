@@ -71,19 +71,28 @@
 // Banner countdown — same deadline as pricing
 (function () {
   var deadline = new Date('2026-03-09T23:59:00-03:00').getTime();
-  var el = document.getElementById('banner-cd');
-  if (!el) return;
+  var dEl = document.getElementById('bcd-d');
+  var hEl = document.getElementById('bcd-h');
+  var mEl = document.getElementById('bcd-m');
+  var sEl = document.getElementById('bcd-s');
+  if (!dEl) return;
 
   function pad(n) { return String(n).padStart(2, '0'); }
 
   function tick() {
     var diff = deadline - Date.now();
-    if (diff <= 0) { el.textContent = 'ENCERRADO'; return; }
+    if (diff <= 0) {
+      document.querySelector('.top-banner__cd').innerHTML = '<span style="font-family:Kanit,sans-serif;font-weight:800;color:#111;">ENCERRADO</span>';
+      return;
+    }
     var d = Math.floor(diff / 86400000);
     var h = Math.floor((diff % 86400000) / 3600000);
     var m = Math.floor((diff % 3600000) / 60000);
     var s = Math.floor((diff % 60000) / 1000);
-    el.textContent = (d > 0 ? d + 'd ' : '') + pad(h) + ':' + pad(m) + ':' + pad(s);
+    dEl.textContent = pad(d);
+    hEl.textContent = pad(h);
+    mEl.textContent = pad(m);
+    sEl.textContent = pad(s);
   }
 
   tick();
