@@ -68,6 +68,28 @@
   }
 })();
 
+// Banner countdown — same deadline as pricing
+(function () {
+  var deadline = new Date('2026-03-09T23:59:00-03:00').getTime();
+  var el = document.getElementById('banner-cd');
+  if (!el) return;
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function tick() {
+    var diff = deadline - Date.now();
+    if (diff <= 0) { el.textContent = 'ENCERRADO'; return; }
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    el.textContent = (d > 0 ? d + 'd ' : '') + pad(h) + ':' + pad(m) + ':' + pad(s);
+  }
+
+  tick();
+  setInterval(tick, 1000);
+})();
+
 // Capture UTMs from landing page URL and forward to Hotmart checkout links
 (function () {
   var utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
